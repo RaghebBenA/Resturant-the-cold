@@ -14,8 +14,7 @@ componentDidMount(){
     .then(json=>{
         const Comment = json.map((comment)=>{
             return (
-                <ul className="list-unstyled" key={comment.id}
-                  onClick={()=>this.props.click}>
+                <ul key={comment.id} className="list-unstyled" >
                 <li>--- {comment.name}</li>
                 <li>** {comment.body}</li>
                 </ul>
@@ -29,7 +28,7 @@ componentDidMount(){
  renderComment(comment ){
      if(comment != null ){
          return (
-             <div>
+             <div className=" col-12 col-md-5 m-1">
              <h4>Comments</h4>
              {this.state.COMMENT}
              </div>
@@ -44,7 +43,7 @@ componentDidMount(){
     renderDish(dish) {
         if (dish != null) {
             return (
-                <Card>
+                <Card className=" col-12 col-md-5 m-1">
                     <CardImg width="100%" src={dish.image} alt={dish.name} />
                     <CardBody>
                         <CardTitle>{dish.name}</CardTitle>
@@ -61,8 +60,8 @@ componentDidMount(){
     render(){
 return (
    <div className="row">
-   <div className="col">{this.renderDish(this.props.selectedDish)}</div>
-  <div className="col">{this.renderComment(this.props.selectedDish)}</div> 
+   {this.renderDish(this.props.selectedDish)}
+ {this.renderComment(this.props.selectedDish)}
    </div>
     
 )
