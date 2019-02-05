@@ -37,7 +37,7 @@ class Details extends Component {
     renderDish(dish) {
         if (dish != null) {
             return (
-                <Card className=" col-12 col-md-5 m-1">
+                <Card className="col-10 col-md-5 m-1">
                     <CardImg width="100%" src={dish.image} alt={dish.name} />
                     <CardBody>
                         <CardTitle>{dish.name}</CardTitle>
@@ -56,14 +56,15 @@ class Details extends Component {
         if (dish == null) {
             return (<div></div>)
         }
-        const dishItem = this.renderDish(dish)
-        const commentItem = this.renderComments(dish.comments)
+        const dishItem = this.renderDish(this.props.dish)
+        const commentItem = this.renderComments(this.props.dish.comments)
 return (
+    <div className="container">
    <div className="row">
    {dishItem}
    {commentItem}
    </div>
-    
+    </div>
 )
     }
 }
