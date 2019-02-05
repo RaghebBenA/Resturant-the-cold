@@ -5,6 +5,12 @@ import { DISHES } from "./Share/dishes"
 import './App.css';
 
 class App extends Component {
+  constructor(){
+    super()
+    this.state ={
+      dishes : DISHES
+    }
+  }
   render() {
     return (
       <div>
@@ -13,7 +19,7 @@ class App extends Component {
             <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
           </div>
         </Navbar>
-        <Menu dishes={DISHES} />
+        <Menu dishes={this.state.dishes} />
       </div>
     );
   }

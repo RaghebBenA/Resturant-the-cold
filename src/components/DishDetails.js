@@ -1,44 +1,38 @@
 import React, { Component } from 'react';
 import {CardText, CardBody, Card, CardImg, CardTitle} from "reactstrap";
-class Details extends Component {
-    constructor(){
-        super()
-        this.state={
-            COMMENT: []
-        }
-    }
 
-componentDidMount(){
-    fetch('https://jsonplaceholder.typicode.com/comments?id=1&id=2')
-  .then(response => response.json())
-    .then(json=>{
-        const Comment = json.map((comment)=>{
+
+class Details extends Component {
+   
+    renderComments(comments) {
+        if (comments == null) {
+            return (<div></div>)
+        }
+        const cmnts = comments.map(comment => {
             return (
-                <ul key={comment.id} className="list-unstyled" >
-                <li>--- {comment.name}</li>
-                <li>** {comment.body}</li>
-                </ul>
+                <li key={comment.id}>
+                    <p>{comment.comment}</p>
+                    <p>-- {comment.author},
+                    &nbsp;
+                    {new Intl.DateTimeFormat('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: '2-digit'
+                        }).format(new Date(comment.date))}
+                    </p>
+                </li>
             )
         })
-        this.setState({
-            COMMENT: Comment
-        })
-    })
-}
- renderComment(comment ){
-     if(comment != null ){
-         return (
-             <div className=" col-12 col-md-5 m-1">
-             <h4>Comments</h4>
-             {this.state.COMMENT}
-             </div>
-         )
-     }else {
-         return (
-             <div></div>
-         )
-     }
- }
+        return (
+            <div className='col-12 col-md-5 m-1'>
+                <h4> Comments </h4>
+                <ul className='list-unstyled'>
+                    {cmnts}
+                </ul>
+
+            </div>
+        )
+    }
 
     renderDish(dish) {
         if (dish != null) {
@@ -58,10 +52,16 @@ componentDidMount(){
         }
     }
     render(){
+        const dish = this.props.dish
+        if (dish == null) {
+            return (<div></div>)
+        }
+        const dishItem = this.renderDish(dish)
+        const commentItem = this.renderComments(dish.comments)
 return (
    <div className="row">
-   {this.renderDish(this.props.selectedDish)}
- {this.renderComment(this.props.selectedDish)}
+   {dishItem}
+   {commentItem}
    </div>
     
 )

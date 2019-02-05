@@ -33,7 +33,7 @@ class Menu extends Component {
                     {menu}
                 </div>
                 <div className="row">
-                    <Details selectedDish={this.state.selectedDish} click={this.onDishSelect} />
+                    <Details dish={this.state.selectedDish}  />
                 </div>
             </div>
         )
