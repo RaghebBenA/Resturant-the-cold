@@ -1,7 +1,46 @@
 import React, { Component } from 'react';
 import {CardText, CardBody, Card, CardImg, CardTitle} from "reactstrap";
-
 class Details extends Component {
+    constructor(){
+        super()
+        this.state={
+            COMMENT: []
+        }
+    }
+
+componentDidMount(){
+    fetch('https://jsonplaceholder.typicode.com/comments?id=1&id=2')
+  .then(response => response.json())
+    .then(json=>{
+        const Comment = json.map((comment)=>{
+            return (
+                <ul className="list-unstyled" key={comment.id}
+                  onClick={()=>this.props.click}>
+                <li>--- {comment.name}</li>
+                <li>** {comment.body}</li>
+                </ul>
+            )
+        })
+        this.setState({
+            COMMENT: Comment
+        })
+    })
+}
+ renderComment(comment ){
+     if(comment != null ){
+         return (
+             <div>
+             <h4>Comments</h4>
+             {this.state.COMMENT}
+             </div>
+         )
+     }else {
+         return (
+             <div></div>
+         )
+     }
+ }
+
     renderDish(dish) {
         if (dish != null) {
             return (
@@ -21,9 +60,11 @@ class Details extends Component {
     }
     render(){
 return (
-    <div className= "col-12 col-md-5 m-1">
-    {this.renderDish(this.props.selectedDish)}
-    </div>
+   <div className="row">
+   <div className="col">{this.renderDish(this.props.selectedDish)}</div>
+  <div className="col">{this.renderComment(this.props.selectedDish)}</div> 
+   </div>
+    
 )
     }
 }
