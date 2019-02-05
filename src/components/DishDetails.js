@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import {CardText, CardBody, Card, CardImg, CardTitle} from "reactstrap";
+import React from 'react';
+import { CardText, CardBody, Card, CardImg, CardTitle } from "reactstrap";
 
 
-class Details extends Component {
-   
-    renderComments(comments) {
+
+
+
+    function RenderComments ({comments}){
         if (comments == null) {
             return (<div></div>)
         }
@@ -15,10 +16,10 @@ class Details extends Component {
                     <p>-- {comment.author},
                     &nbsp;
                     {new Intl.DateTimeFormat('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: '2-digit'
-                        }).format(new Date(comment.date))}
+                        year: 'numeric',
+                        month: 'long',
+                        day: '2-digit'
+                    }).format(new Date(comment.date))}
                     </p>
                 </li>
             )
@@ -34,7 +35,8 @@ class Details extends Component {
         )
     }
 
-    renderDish(dish) {
+     function RenderDish ({dish}) {
+
         if (dish != null) {
             return (
                 <Card className="col-10 col-md-5 m-1">
@@ -51,22 +53,23 @@ class Details extends Component {
             )
         }
     }
-    render(){
-        const dish = this.props.dish
-        if (dish == null) {
-            return (<div></div>)
+      const Details = (props) =>{
+        
+        if (props.dish != null) {
+        return (
+            <div className="container">
+                <div className="row">
+                   <RenderDish dish={props.dish}/>
+                   <RenderComments comments={props.dish.comments} />
+                   </div>
+            </div>
+        )
         }
-        const dishItem = this.renderDish(this.props.dish)
-        const commentItem = this.renderComments(this.props.dish.comments)
-return (
-    <div className="container">
-   <div className="row">
-   {dishItem}
-   {commentItem}
-   </div>
-    </div>
-)
-    }
-}
+        else {
+            return (
+                <div></div>
+            )
+        }
+        }
 
-export default Details ;
+export default Details;
