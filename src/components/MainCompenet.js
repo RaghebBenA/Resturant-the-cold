@@ -10,7 +10,7 @@ import { PROMOTIONS } from "../Share/pormotion"
 import Footer from './FooterComponent';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Contact from './ContactHome';
-
+import About from'./aboutUs';
 
 class Main extends Component {
     constructor() {
@@ -48,7 +48,8 @@ class Main extends Component {
                     <Route path="/home" component={HomePage} />
                     <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes} />} />
                     <Route path="/menu/:dishId" component={DishWithId} />
-                    <Route exact pasth="/contactus" component={Contact} />
+                    <Route exact path="/contactus" component={Contact} />
+                    <Route path="/aboutus" component={() => <About  leaders={this.state.leaders}/>} />
                     <Redirect to="home" />
                 </Switch>
                 <Footer />
