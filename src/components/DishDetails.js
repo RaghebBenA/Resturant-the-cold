@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from "./LoadingComponent"
 import { baseUrl } from '../Share/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components'
 
 
 
@@ -22,30 +23,46 @@ function RenderComments({ comments, postComment, dishId }) {
             </li>
         );
     });
-
+if (comments != null){
     return (
         <div>
             <h4>Comments</h4>
             <ul className="list-unstyled">
-                {commentList}
+                <Stagger in>
+                    <Fade in>
+                        {commentList}
+                    </Fade>
+                </Stagger>
             </ul>
             <CommentForm dishId={dishId} postComment={postComment} />
         </div>
-    );
+        );
+    }
+    else {
+        return(
+        <div></div>
+        )
+    }
 }
+
 
 
 function RenderDish({ dish }) {
 
     if (dish != null) {
         return (
-            <Card >
-                <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
-                <CardBody>
-                    <CardTitle>{dish.name}</CardTitle>
-                    <CardText>{dish.description}</CardText>
-                </CardBody>
-            </Card>
+            <FadeTransform in
+                transformProps={{
+                    exitTransform: "scale(0.5) translateY(-50%)"
+                }}>
+                <Card >
+                    <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
+                    <CardBody>
+                        <CardTitle>{dish.name}</CardTitle>
+                        <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            </FadeTransform>
         )
     } else {
         return (
@@ -57,18 +74,18 @@ const Details = (props) => {
 
 
     if (props.isLoading) {
-        return(
+        return (
             <div className="container">
-                <div className="row">            
+                <div className="row">
                     <Loading />
                 </div>
             </div>
         );
     }
     else if (props.errMess) {
-        return(
+        return (
             <div className="container">
-                <div className="row">            
+                <div className="row">
                     <h4>{props.errMess}</h4>
                 </div>
             </div>
