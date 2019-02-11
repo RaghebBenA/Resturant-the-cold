@@ -192,47 +192,56 @@ export const leadersFailed = (errmess) => ({
     payload: errmess
 });
 
-export const postFeedback = (feedback,FirstName,LastName,email,agree,contactType,message) => (dispatch) => {
+export const postFeedback = (
+    firstname,
+    lastname,
+    telnum,
+    email,
+    agree,
+    contactType,
+    message
+  ) => dispatch => {
     const newFeedback = {
-        feedback: feedback,
-        FirstName: FirstName,
-        LastName: LastName,
-        email:email,
-        agree: agree,
-        contactType: contactType,
-        message: message
-
-    }
-    
-   newFeedback.date = new Date().toISOString();
-    
-    return fetch(baseUrl + 'feedback', {
-        method: 'POST',
-        body: JSON.stringify(newFeedback),
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        credentials: 'same-origin'
+      firstname: firstname,
+      lastname: lastname,
+      telnum: telnum,
+      email: email,
+      agree: agree,
+      contactType: contactType,
+      message: message
+    };
+    newFeedback.date = new Date().toISOString();
+  
+    return fetch(baseUrl + "feedback", {
+      method: "POST",
+      body: JSON.stringify(newFeedback),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "same-origin"
     })
-        .then(response => {
-            if (response.ok) {
-                return response;
-            } else {
-                var error = new Error('Error ' + response.status + ': ' + response.statusText);
-                error.response = response;
-
-                throw error;
-            }
+      .then(
+        response => {
+          if (response.ok) {
+            return response;
+          } else {
+            var error = new Error(
+              "Error " + response.status + ": " + response.statusText
+            );
+            error.response = response;
+            throw error;
+          }
         },
-            error => {
-                var errorMessage = new Error(error.errorMessage);
-                throw errorMessage;
-            }
-        )
-        .then(response => response.json())
-        .then(response => dispatch(addComment(response)))
-        .catch(error => {
-            console.log('Post feedback: ' + error.message);
-            alert('Feedback could not be posted:\n' + error.message)
-        })
-};
+        error => {
+          throw error;
+        }
+      )
+      .then(response => response.json())
+      .then(response =>
+        alert("Thank you for your feedback!")
+      )
+      .catch(error => {
+        console.log("post feedbacks", error.message);
+        alert("Your feedback could not be posted\nError: " + error.message);
+      });
+  };

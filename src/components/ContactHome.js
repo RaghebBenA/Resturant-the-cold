@@ -20,9 +20,16 @@ class Contact extends Component {
     }
 
     handelSumbit(value) {
-        alert("Current State is: " + JSON.stringify(value))
         this.props.resetFeedbackForm(value)
-        this.props.postFeedback(value.FirstName,value.LastName,value.email,value.agree,value.contactType,value.message)
+        this.props.postFeedback(
+            value.firstname,
+            value.lastname,
+            value.telnum,
+            value.email,
+            value.agree,
+            value.contactType,
+            value.message
+          );
     }
 
 
