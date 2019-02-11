@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Button, Label, Col, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, Form, Errors,actions } from "react-redux-form";
+import { Control, Form, Errors} from "react-redux-form";
 
 const required = (val) => val && val.length
 const maxLength = (len) => (val) => !(val) || (val.length <= len)
@@ -20,9 +20,9 @@ class Contact extends Component {
     }
 
     handelSumbit(value) {
-        console.log("Current State is: " + JSON.stringify(value))
         alert("Current State is: " + JSON.stringify(value))
-        this.props.resetFeedbackForm()
+        this.props.resetFeedbackForm(value)
+        this.props.postFeedback(value.FirstName,value.LastName,value.email,value.agree,value.contactType,value.message)
     }
 
 
